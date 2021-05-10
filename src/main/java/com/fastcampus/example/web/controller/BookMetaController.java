@@ -3,6 +3,7 @@ package com.fastcampus.example.web.controller;
 import com.fastcampus.example.common.CommonResponse;
 import com.fastcampus.example.domain.dto.BookRequest;
 import com.fastcampus.example.domain.dto.BookResponse;
+import com.fastcampus.example.domain.dto.BookUpdateRequest;
 import com.fastcampus.example.domain.entity.LoginUser;
 import com.fastcampus.example.domain.entity.User;
 import com.fastcampus.example.exception.BookMetaInvalidParameterException;
@@ -30,14 +31,14 @@ public class BookMetaController {
   }
 
   @PostMapping("/")
-  public CommonResponse<BookResponse> createBookMeta(@RequestBody BookRequest req) {
+  public CommonResponse<BookResponse> createBookMeta(@RequestBody @Valid BookRequest req) {
     if(req == null)
       throw new BookMetaInvalidParameterException();
     return CommonResponse.ok("success", bookMetaService.createBookMeta(req));
   }
 
   @PutMapping("/{id}")
-  public CommonResponse<BookResponse> updateBookMeta(@PathVariable Long id, @RequestBody BookRequest req) {
+  public CommonResponse<BookResponse> updateBookMeta(@PathVariable Long id, @RequestBody @Valid BookUpdateRequest req) {
     if(req == null)
       throw new InvalidParameterException();
     return CommonResponse.ok("success", bookMetaService.updateBookMeta(id,req));

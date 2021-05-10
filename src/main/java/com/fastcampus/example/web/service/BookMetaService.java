@@ -3,6 +3,7 @@ package com.fastcampus.example.web.service;
 import com.fastcampus.example.common.CommonException;
 import com.fastcampus.example.domain.dto.BookRequest;
 import com.fastcampus.example.domain.dto.BookResponse;
+import com.fastcampus.example.domain.dto.BookUpdateRequest;
 import com.fastcampus.example.domain.entity.BookMeta;
 import com.fastcampus.example.domain.repository.BookMetaRepository;
 import com.fastcampus.example.domain.type.ErrorCode;
@@ -41,7 +42,7 @@ public class BookMetaService {
     return newBookMeta.mapper();
   }
 
-  public BookResponse updateBookMeta(Long id, BookRequest req) {
+  public BookResponse updateBookMeta(Long id, BookUpdateRequest req) {
     Optional<BookMeta> optional = bookMetaRepository.findById(id);
 
     return optional.map(

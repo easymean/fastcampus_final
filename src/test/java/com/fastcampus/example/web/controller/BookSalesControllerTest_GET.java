@@ -19,18 +19,18 @@ public class BookSalesControllerTest_GET extends AbstractMockMvcTestBoilerplate 
         mvc.perform(get("/sales/" + id))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.seller").exists())
-                .andExpect(jsonPath("$.seller.id").exists())
-                .andExpect(jsonPath("$.seller.name").exists())
-                .andExpect(jsonPath("$.book").exists())
-                .andExpect(jsonPath("$.book.id").exists())
-                .andExpect(jsonPath("$.book.name").exists())
-                .andExpect(jsonPath("$.book.price").exists())
-                .andExpect(jsonPath("$.book.isbn").exists())
-                .andExpect(jsonPath("$.stock").exists())
-                .andExpect(jsonPath("$.purchasable").exists())
-                .andExpect(jsonPath("$.exposable").exists());
+                .andExpect(jsonPath("$.data.id").value(id))
+                .andExpect(jsonPath("$.data.seller").exists())
+                .andExpect(jsonPath("$.data.seller.id").exists())
+                .andExpect(jsonPath("$.data.seller.name").exists())
+                .andExpect(jsonPath("$.data.book").exists())
+                .andExpect(jsonPath("$.data.book.id").exists())
+                .andExpect(jsonPath("$.data.book.name").exists())
+                .andExpect(jsonPath("$.data.book.price").exists())
+                .andExpect(jsonPath("$.data.book.isbn").exists())
+                .andExpect(jsonPath("$.data.stock").exists())
+                .andExpect(jsonPath("$.data.purchasable").exists())
+                .andExpect(jsonPath("$.data.exposable").exists());
     }
 
     @Test
