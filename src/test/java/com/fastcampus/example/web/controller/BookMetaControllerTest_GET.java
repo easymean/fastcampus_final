@@ -28,7 +28,7 @@ public class BookMetaControllerTest_GET extends AbstractMockMvcTestBoilerplate {
 
     @Test
     @DisplayName("책이 존재하지 않을때, 500 BOOK_META_NOT_FOUND 를 응답한다")
-    void fail_500__when__유저를_찾을_수_없을때() throws Exception {
+    void fail_500__when__책을_찾을_수_없을때() throws Exception {
         mvc.perform(get("/books/-1"))
                 .andExpect(status().is(HttpStatus.INTERNAL_SERVER_ERROR.value()))
                 .andExpect(content().contentType(APPLICATION_JSON))

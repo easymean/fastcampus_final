@@ -28,8 +28,8 @@ public class BookMetaControllerTest_PUT extends AbstractMockMvcTestBoilerplate {
         mvc.perform(request)
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.name").value(changedName));
+                .andExpect(jsonPath("$.data.id").value(id))
+                .andExpect(jsonPath("$.data.name").value(changedName));
     }
 
     @Test

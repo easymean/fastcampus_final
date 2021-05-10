@@ -31,10 +31,10 @@ public class BookMetaControllerTest_POST extends AbstractMockMvcTestBoilerplate 
         mvc.perform(request)
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.price").value(price))
-                .andExpect(jsonPath("$.name").value(name))
-                .andExpect(jsonPath("$.isbn").value(isbn));
+                .andExpect(jsonPath("$.data.id").exists())
+                .andExpect(jsonPath("$.data.price").value(price))
+                .andExpect(jsonPath("$.data.name").value(name))
+                .andExpect(jsonPath("$.data.isbn").value(isbn));
     }
 
     @Test

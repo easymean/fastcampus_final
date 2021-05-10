@@ -9,6 +9,5 @@ import java.util.Optional;
 
 public interface BookMetaRepository extends JpaRepository<BookMeta, Long> {
   Optional<BookMeta> findById(Long id);
-
   BookMeta findFirstById(Long id);
 }

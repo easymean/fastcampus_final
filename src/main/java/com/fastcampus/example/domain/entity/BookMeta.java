@@ -1,9 +1,9 @@
 package com.fastcampus.example.domain.entity;
 
 import com.fastcampus.example.domain.BaseEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fastcampus.example.domain.dto.BookResponse;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -11,19 +11,39 @@ import javax.persistence.*;
 @Entity
 @Table(name = "book_meta")
 @NoArgsConstructor
+@Accessors(chain=true)
 public class BookMeta extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
 
     @Column
+    @Setter
     private String name;
 
     @Column
+    @Setter
     private Long price;
 
+    @Setter
     @Column(name = "isbn13")
     private String isbn;
 
     // image category 등등...다양한 정보
+
+    @Builder
+    public BookMeta(String name, Long price, String isbn){
+        this.name = name;
+        this.isbn = isbn;
+        this.price = price;
+    }
+
+    public BookResponse mapper(){
+        return BookResponse.builder()
+            .id(this.id)
+            .name(this.name)
+            .price(this.price)
+            .isbn(this.isbn)
+            .build();
+    }
 }

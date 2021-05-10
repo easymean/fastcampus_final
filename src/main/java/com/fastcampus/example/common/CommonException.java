@@ -1,20 +1,25 @@
 package com.fastcampus.example.common;
 
-import com.fastcampus.example.domain.type.ErrorStatusInf;
-import lombok.Getter;
+import com.fastcampus.example.domain.type.ErrorCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+@NoArgsConstructor
 public class CommonException extends RuntimeException{
 
-  @Getter
   @Enumerated(value = EnumType.STRING)
-  private final ErrorStatusInf errorCode;
+  private ErrorCode errorCode;
 
-  public CommonException(String message, ErrorStatusInf errorCode){
+  public CommonException(String message, ErrorCode errorCode){
     super(message);
     this.errorCode = errorCode;
   }
+
+  public String getErrorCode(){
+    return errorCode.getMessage();
+  }
+
 
 }

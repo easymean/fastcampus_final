@@ -4,6 +4,7 @@ import com.fastcampus.example.domain.BaseEntity;
 import com.fastcampus.example.domain.type.SalesStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @DynamicUpdate
 @Table(name = "book_sales_info")
 @NoArgsConstructor
+@Accessors(chain=true)
 public class BookSalesInfo extends BaseEntity {
     @Id
     @GeneratedValue

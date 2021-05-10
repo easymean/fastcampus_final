@@ -4,11 +4,6 @@ import lombok.Getter;
 
 
 @Getter
-public class BookRequest {
-
+public class BookUpdateRequest {
   private String name;
-
-  private Long price;
-
-  private String isbn;
 }

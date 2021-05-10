@@ -2,13 +2,13 @@ package com.fastcampus.example.common;
 
 import com.fastcampus.example.domain.dto.BookResponse;
 import lombok.*;
+import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class CommonResponse<T> {
+public class CommonResponse<T>{
 
-  private final LocalDateTime transactionTime;
   private final String error_code;
   private final String message;
   private final T data;
@@ -17,7 +17,6 @@ public class CommonResponse<T> {
     this.message = message;
     this.data = data;
     this.error_code = error_code;
-    this.transactionTime = LocalDateTime.now();
   }
 
   public static <T> CommonResponse<T> ok(T data){
