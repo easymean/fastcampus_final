@@ -34,6 +34,7 @@ public class User extends BaseEntity {
         return UserDto.Response.builder()
             .id(this.id)
             .name(this.name)
+            .deletedAt(this.deletedAt)
             .build();
     }
 }

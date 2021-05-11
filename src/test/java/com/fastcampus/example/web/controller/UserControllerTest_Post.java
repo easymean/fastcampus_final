@@ -26,8 +26,8 @@ public class UserControllerTest_Post extends AbstractMockMvcTestBoilerplate {
         mvc.perform(request)
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.name").value(name));
+                .andExpect(jsonPath("$.data.id").exists())
+                .andExpect(jsonPath("$.data.name").value(name));
     }
 
     @Test
