@@ -10,6 +10,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Component
 @RequiredArgsConstructor
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
@@ -22,7 +24,9 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
   @Override
   public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-    String xUserId = webRequest.getParameter("X-USER-ID");
+    HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+
+    String xUserId = request.getHeader("X-USER-ID");
     if(xUserId == null){
       throw new InvalidHeaderException();
     }

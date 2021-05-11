@@ -3,10 +3,7 @@ package com.fastcampus.example.domain.entity;
 import com.fastcampus.example.domain.BaseEntity;
 import com.fastcampus.example.domain.dto.SalesDto;
 import com.fastcampus.example.domain.type.SalesStatus;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -15,7 +12,7 @@ import javax.persistence.*;
 @Getter @Builder
 @DynamicUpdate
 @Entity @Table(name = "book_sales_info")
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Accessors(chain=true)
 public class BookSalesInfo extends BaseEntity {
     @Id

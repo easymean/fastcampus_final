@@ -21,13 +21,12 @@ public class UserController {
   @GetMapping("/users/me")
   public CommonResponse<UserDto.Response> getMyInfo(@LoginUser UserId user) {
     Long myId = user.getUserId();
-    return CommonResponse.ok("유저 정보 조회 성공", userService.findById(myId, myId));
+    return CommonResponse.ok("유저 정보 조회 성공", userService.findByMyself(myId, myId));
   }
 
   @GetMapping("/users/{id}")
-  public CommonResponse<UserDto.Response> getUserById(@LoginUser UserId user, @PathVariable("id") Long id) {
-    Long myId = user.getUserId();
-    return CommonResponse.ok("유저 정보 조회 성공", userService.findById(myId, id));
+  public CommonResponse<UserDto.Response> getUserById(@PathVariable("id") Long id) {
+    return CommonResponse.ok("유저 정보 조회 성공", userService.findById(id));
   }
 
   @PostMapping("/users")
@@ -43,6 +42,7 @@ public class UserController {
 
   @DeleteMapping("/users")
   public CommonResponse<UserDto.Response> deleteUser(@LoginUser UserId user) {
-    return null;
+    Long id = user.getUserId();
+    return CommonResponse.ok("유저 삭제 성공", userService.deleteUser(id));
   }
 }

@@ -18,7 +18,7 @@ public class UserControllerTest_Delete extends AbstractMockMvcTestBoilerplate {
         mvc.perform(delete("/users").header(USER_HEADER, 7))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$.deleted_at").exists());
+                .andExpect(jsonPath("$.data.deleted_at").exists());
     }
 
     @Test

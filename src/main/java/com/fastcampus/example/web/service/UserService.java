@@ -6,26 +6,44 @@ import com.fastcampus.example.domain.repository.UserRepository;
 import com.fastcampus.example.exception.AccessDeniedException;
 import com.fastcampus.example.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
   private final UserRepository userRepository;
 
+  public UserService(UserRepository userRepository){
+    this.userRepository = userRepository;
+  }
 
-  public UserDto.Response findById(Long myId, Long id) {
+  public UserDto.Response findById(Long id) {
 
     return userRepository.findById(id)
         .map(user -> {
-              if (user.getDeletedAt().isBefore(LocalDateTime.now()) && myId.equals(id)) {
+              if (user.getDeletedAt() != null && user.getDeletedAt().isBefore(LocalDateTime.now())) {
+                throw new UserNotFoundException();
+              }
+              return user;
+            }
+        )
+        .map(User::mapper)
+        .orElseGet(() -> {
+          throw new UserNotFoundException();
+        });
+  }
+
+  public UserDto.Response findByMyself(Long myId, Long id) {
+
+    return userRepository.findById(id)
+        .map(user -> {
+              if (user.getDeletedAt() != null && user.getDeletedAt().isBefore(LocalDateTime.now()) && myId.equals(id)) {
                 throw new AccessDeniedException();
               }
-              if (user.getDeletedAt().isBefore(LocalDateTime.now()) && !myId.equals(id)) {
+              if (user.getDeletedAt() != null && user.getDeletedAt().isBefore(LocalDateTime.now()) && !myId.equals(id)) {
                 throw new UserNotFoundException();
               }
               return user;
@@ -57,5 +75,19 @@ public class UserService {
         .orElseGet(() -> {
           throw new UserNotFoundException();
         });
+  }
+
+  public UserDto.Response deleteUser(Long id){
+    return userRepository.findById(id)
+        .map(user -> {
+          user.setDeletedAt(LocalDateTime.now());
+          return user;
+        })
+        .map(userRepository::save)
+        .map(User::mapper)
+        .orElseGet(()-> {
+          throw new UserNotFoundException();
+        })
+        ;
   }
 }
