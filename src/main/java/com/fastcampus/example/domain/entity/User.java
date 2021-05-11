@@ -1,9 +1,11 @@
 package com.fastcampus.example.domain.entity;
 
 import com.fastcampus.example.domain.BaseEntity;
+import com.fastcampus.example.domain.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -19,7 +21,7 @@ public class User extends BaseEntity {
     @GeneratedValue
     private Long id;
 
-    @Column
+    @Column @Setter
     private String name;
 
     @Column
@@ -29,5 +31,11 @@ public class User extends BaseEntity {
     public User(Long id, String name){
         this.id = id;
         this.name = name;
+    }
+
+    public UserDto.Response mapper(){
+        return UserDto.Response.builder()
+            .id(this.id)
+            .build();
     }
 }

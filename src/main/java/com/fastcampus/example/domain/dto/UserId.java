@@ -1,10 +1,12 @@
 package com.fastcampus.example.domain.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
-public class LoginRequest {
+public class UserId {
   private Long userId;
+
+  public UserId(Long id){
+    this.userId = id;
+  }
 }

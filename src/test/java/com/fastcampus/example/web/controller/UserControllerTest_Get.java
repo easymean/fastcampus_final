@@ -18,8 +18,8 @@ public class UserControllerTest_Get extends AbstractMockMvcTestBoilerplate {
         mvc.perform(get("/users/1"))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(content().contentType(APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").exists());
+                .andExpect(jsonPath("$.data.id").value(1L))
+                .andExpect(jsonPath("$.data.name").exists());
     }
 
     @Test

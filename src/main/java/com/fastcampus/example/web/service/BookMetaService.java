@@ -1,14 +1,9 @@
 package com.fastcampus.example.web.service;
 
-import com.fastcampus.example.common.CommonException;
-import com.fastcampus.example.domain.dto.BookRequest;
-import com.fastcampus.example.domain.dto.BookResponse;
-import com.fastcampus.example.domain.dto.BookUpdateRequest;
+import com.fastcampus.example.domain.dto.BookDto;
 import com.fastcampus.example.domain.entity.BookMeta;
 import com.fastcampus.example.domain.repository.BookMetaRepository;
-import com.fastcampus.example.domain.type.ErrorCode;
 import com.fastcampus.example.exception.BookMetaNotFoundException;
-import com.fastcampus.example.exception.InvalidParameterException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,7 +17,7 @@ public class BookMetaService {
     this.bookMetaRepository = bookMetaRepository;
   }
 
-  public BookResponse findById(Long id) {
+  public BookDto.Response findById(Long id) {
 
     return bookMetaRepository.findById(id)
         .map(BookMeta::mapper)
@@ -31,7 +26,7 @@ public class BookMetaService {
         });
   }
 
-  public BookResponse createBookMeta(BookRequest req) {
+  public BookDto.Response createBookMeta(BookDto.Create req) {
     BookMeta bookMeta = BookMeta.builder()
         .name(req.getName())
         .price(req.getPrice())
@@ -42,7 +37,7 @@ public class BookMetaService {
     return newBookMeta.mapper();
   }
 
-  public BookResponse updateBookMeta(Long id, BookUpdateRequest req) {
+  public BookDto.Response updateBookMeta(Long id, BookDto.Update req) {
     Optional<BookMeta> optional = bookMetaRepository.findById(id);
 
     return optional.map(
@@ -53,7 +48,7 @@ public class BookMetaService {
     ).map(bookMetaRepository::save)
         .map(BookMeta::mapper)
         .orElseGet(() -> {
-          throw new InvalidParameterException();
+          throw new BookMetaNotFoundException();
         });
   }
 

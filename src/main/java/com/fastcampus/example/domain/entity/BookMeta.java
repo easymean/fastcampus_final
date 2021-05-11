@@ -1,7 +1,7 @@
 package com.fastcampus.example.domain.entity;
 
 import com.fastcampus.example.domain.BaseEntity;
-import com.fastcampus.example.domain.dto.BookResponse;
+import com.fastcampus.example.domain.dto.BookDto;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -38,8 +38,8 @@ public class BookMeta extends BaseEntity {
         this.price = price;
     }
 
-    public BookResponse mapper(){
-        return BookResponse.builder()
+    public BookDto.Response mapper(){
+        return BookDto.Response.builder()
             .id(this.id)
             .name(this.name)
             .price(this.price)

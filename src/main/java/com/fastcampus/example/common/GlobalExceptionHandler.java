@@ -1,8 +1,6 @@
 package com.fastcampus.example.common;
 
-import com.fastcampus.example.exception.BookMetaInvalidParameterException;
-import com.fastcampus.example.exception.BookMetaNotFoundException;
-import com.fastcampus.example.exception.LoginException;
+import com.fastcampus.example.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,27 +12,35 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler()
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public CommonResponse<Object> handleBookMetaException(CommonException e){
-    log.error("", e);
-    return CommonResponse.error(e.getMessage(), e.getErrorCode());
-  }
-
-  @ExceptionHandler({LoginException.class})
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public CommonResponse<Object> handleLoginException(CommonException e){
-    log.error("", e);
-    return CommonResponse.error(e.getMessage(), e.getErrorCode());
-  }
-
-  @ExceptionHandler(MethodArgumentNotValidException.class)
+  //400 ERROR
+  @ExceptionHandler({MethodArgumentNotValidException.class, InvalidParameterException.class, InvalidHeaderException.class, InvalidRequestException.class})
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public CommonResponse<Object> handleValidationException(CommonException e){
     log.error("", e);
     return CommonResponse.error(e.getMessage(), e.getErrorCode());
   }
 
+
+  //403 ERROR
+  @ExceptionHandler({AccessDeniedException.class})
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  public CommonResponse<Object> handleAccessDeniedException(CommonException e){
+    log.error("", e);
+    return CommonResponse.error(e.getMessage(), e.getErrorCode());
+  }
+
+
+  //404 ERROR
+  @ExceptionHandler({UserNotFoundException.class, SalesNotFoundException.class})
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public CommonResponse<Object> handleNotFoundException(CommonException e){
+    log.error("", e);
+    return CommonResponse.error(e.getMessage(), e.getErrorCode());
+  }
+
+
+
+  //500 ERROR
   @ExceptionHandler
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public CommonResponse<Object> handleException(Exception e){

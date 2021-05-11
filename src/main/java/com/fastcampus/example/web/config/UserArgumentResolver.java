@@ -1,7 +1,7 @@
 package com.fastcampus.example.web.config;
 
-import com.fastcampus.example.domain.dto.LoginRequest;
-import com.fastcampus.example.exception.LoginException;
+import com.fastcampus.example.domain.dto.UserId;
+import com.fastcampus.example.exception.InvalidHeaderException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -17,18 +17,16 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
-    return LoginRequest.class.isAssignableFrom(parameter.getParameterType());
+    return UserId.class.isAssignableFrom(parameter.getParameterType());
   }
 
   @Override
   public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
     String xUserId = webRequest.getParameter("X-USER-ID");
     if(xUserId == null){
-      throw new LoginException();
+      throw new InvalidHeaderException();
     }
     Long id = Long.parseLong(xUserId);
-    return LoginRequest.builder()
-        .userId(id)
-        .build();
+    return new UserId(id);
   }
 }

@@ -1,10 +1,6 @@
 package com.fastcampus.example.common;
 
-import com.fastcampus.example.domain.dto.BookResponse;
 import lombok.*;
-import org.springframework.http.ResponseEntity;
-
-import java.time.LocalDateTime;
 
 @Getter
 public class CommonResponse<T>{
