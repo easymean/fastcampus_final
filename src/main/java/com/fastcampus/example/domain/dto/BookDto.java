@@ -9,19 +9,15 @@ public class BookDto {
 
   @Getter
   public static class Create{
-    @NotEmpty
     private String name;
 
-    @NotEmpty
     private Long price;
 
-    @NotEmpty
     private String isbn;
   }
 
   @Getter
   public static class Update{
-    @NotEmpty
     private String name;
   }
 

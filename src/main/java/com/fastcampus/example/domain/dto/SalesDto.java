@@ -5,16 +5,18 @@ import com.fastcampus.example.domain.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class SalesDto {
 
   @Getter
   public static class Update{
-    private Long id;
-
+    @NotNull
     private Long stock;
-
+    @NotNull
     private Boolean purchasable;
-
+    @NotNull
     private Boolean exposable;
   }
 

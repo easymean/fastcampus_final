@@ -8,6 +8,8 @@ import com.fastcampus.example.web.service.BookSalesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 public class BookSalesController {
@@ -20,7 +22,7 @@ public class BookSalesController {
   }
 
   @PutMapping("/sales/{id}")
-  public CommonResponse<SalesDto.Response> updateSales(@LoginUser UserId user, @PathVariable("id") Long salesId, @RequestBody SalesDto.Update req){
+  public CommonResponse<SalesDto.Response> updateSales(@LoginUser UserId user, @PathVariable("id") Long salesId, @RequestBody @Valid SalesDto.Update req){
     Long userId = user.getUserId();
     return CommonResponse.ok("success", bookSalesService.updateSalesInfo(userId, salesId, req));
   }

@@ -1,5 +1,6 @@
 package com.fastcampus.example.common;
 
+import com.fastcampus.example.domain.dto.BookDto;
 import com.fastcampus.example.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,10 +11,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler{
 
   //400 ERROR
-  @ExceptionHandler({MethodArgumentNotValidException.class, InvalidParameterException.class, InvalidHeaderException.class, InvalidRequestException.class})
+  @ExceptionHandler({MethodArgumentNotValidException.class})
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public CommonResponse<Object> handleMethodArgumentException(MethodArgumentNotValidException e){
+    CommonException ex = new InvalidParameterException();
+    log.error("", ex);
+    return CommonResponse.error(ex.getMessage(), ex.getErrorCode());
+  }
+
+  @ExceptionHandler({InvalidHeaderException.class, InvalidRequestException.class})
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public CommonResponse<Object> handleValidationException(CommonException e){
     log.error("", e);
